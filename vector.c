@@ -38,6 +38,10 @@ double vector_get(const Vector *vector, int index) {
   if(vector == NULL){
     return;
   }
+  if(index > vector->size){
+    printf("Index is out of range");
+    return;
+  }
   return vector->data[index];
 }
 
