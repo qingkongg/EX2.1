@@ -36,11 +36,12 @@ void vector_push(Vector *vector, double element) {
 
 double vector_get(const Vector *vector, int index) {
   if(vector == NULL){
-    return;
+    printf("Vector is missing");
+    return 0;
   }
   if(index > vector->size){
     printf("Index is out of range");
-    return;
+    return 0;
   }
   return vector->data[index];
 }
