@@ -1,5 +1,6 @@
 #include "vector.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Vector *vector_create(void) {
   Vector *vector = malloc(sizeof(Vector));
