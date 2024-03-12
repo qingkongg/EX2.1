@@ -1,0 +1,54 @@
+1 a.使用--args选项后跟程序名和参数来启动GDB
+        gdb --args ./your_program arg1 arg2
+  b.在GDB的命令行提示符下，使用set args命令来设置参数，然后使用run命令来启动程序
+        (gdb) set args arg1 arg2
+        (gdb) run
+  c.在GDB的命令行提示符下，直接在run命令后面添加参数
+        (gdb) run arg1 arg2
+
+2 break 42设置了一个在源代码的第42行的断点，然后condition 1 i == 4指定了这个断点只在变量i等于4时才会触发。
+        (gdb) break 42
+        (gdb) condition 1 i == 4
+    可以使用GDB的表达式。例如，如果你想在一个字符串变量str等于"hello"时触发断点，可以这样做：
+        (gdb) break 42 if $_streq(str, "hello")
+
+3 执行当前函数的下一行代码，不进入任何函数：
+        (gdb) next
+  如果下一行代码是函数调用，进入该函数：
+        (gdb) step
+
+4 如果下一行代码是一个函数调用，并且你想要单步进入这个函数内部进行调试，你应该使用step（或简写为s）命令。这个命令会让GDB进入函数内部，允许你逐行检查函数的执行。
+  这里是如何使用step命令的例子：
+        (gdb) step
+  如果你在使用next命令时遇到了一个函数调用，next会执行整个函数调用，但不会进入函数内部。而step命令则会进入函数内部，让你可以查看和调试函数内部的每一行代码。
+
+5 在GDB中，当程序在断点处停止后，要恢复程序的执行，你可以使用continue命令（或简写为c）。这个命令会让程序继续运行，直到遇到下一个断点或程序结束。
+  如果你想要程序在达到断点后自动继续执行，可以在设置断点后使用commands命令为该断点指定一个命令列表，其中包括continue命令。这样，每次程序达到该断点时，
+  GDB都会自动执行continue命令。
+
+6 在GDB中查看变量的值或者计算表达式的结果，可以使用print命令。这个命令也可以缩写为p。例如，查看一个变量var的值
+        (gdb) print var
+  或者计算表达式1+2的结果：
+        (gdb) print 1+2
+
+7 如果你想要在每次程序停止时都自动显示某个变量或表达式的值，可以使用display命令。例如，自动显示变量var的值：
+        (gdb) display var
+  可以使用断点命令列表。首先设置一个断点，然后使用commands命令为该断点指定命令列表。例如：
+        (gdb) break myfile.cpp:180
+        (gdb) commands 1
+        > print var
+        > end
+
+8 要打印当前函数中所有变量及其值的列表，你可以使用info locals命令。这个命令会列出当前栈帧中的所有局部变量的名字和值。
+  如果你还想查看当前函数的参数值，可以使用info args命令。
+        (gdb) info locals
+        (gdb) info args
+  如果你想要查看全局变量和静态变量，可以使用info variables命令。
+
+9 要退出GDB，你可以在GDB命令行提示符下输入quit或者简写的q命令。
+        (gdb) quit
+
+
+
+
+
